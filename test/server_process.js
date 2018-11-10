@@ -76,7 +76,7 @@ describe('server process', function() {
     it('should respond to request for "' + url + '"', function(done) {
       this.timeout(5000);
 
-      http.get({
+      var conn = http.get({
         hostname: 'localhost',
         port: 8080,
         path: '/'
@@ -90,7 +90,7 @@ describe('server process', function() {
         res.on('data', function(data) { result_data += data });
 
         res.on('end', function() {
-          res.abort();
+          conn.abort();
           if (result_data.length > 0) {
             done();
           } else {
