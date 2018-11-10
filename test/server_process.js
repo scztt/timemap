@@ -1,6 +1,7 @@
 var assert = require('assert');
 var child_process = require('child_process')
 var http = require('http');
+const log = require('why-is-node-running') // should be your first require
 
 var SERVER_LAUNCH_WAIT_TIME = 5 * 1000;
 
@@ -47,7 +48,17 @@ describe('server process', function() {
     server_proc.kill('SIGINT');
     console.log('SIGKILL')
     server_proc.kill('SIGKILL');
-    console.log("server killed...")
+    console.log("server killed...");
+
+    setTimeout(function () {
+      log() // logs out active handles that are keeping node running
+    }, 2000)
+    setTimeout(function () {
+      log() // logs out active handles that are keeping node running
+    }, 5000)
+    setTimeout(function () {
+      log() // logs out active handles that are keeping node running
+    }, 8000)
   });
 
   it('should launch', function() {
