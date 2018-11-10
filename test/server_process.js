@@ -14,7 +14,7 @@ describe('server process', function() {
     console.log("launching server...")
     server_proc = child_process.spawn('webpack-dev-server', ['--content-base', 'static', '--mode', 'development'], {
       cwd: '.',
-      // shell: '/bin/bash',
+      shell: '/bin/bash',
       detached: true
     });
 
@@ -32,6 +32,7 @@ describe('server process', function() {
     return (new Promise(function(done) {
       // @TODO Better way to detect server alive-ness than waiting?
       setTimeout(done, SERVER_LAUNCH_WAIT_TIME)
+      console.log('process pid: ' + server_proc.pid)
     }));
   });
 
