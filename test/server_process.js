@@ -31,7 +31,9 @@ describe('server process', function() {
   after(function() {
     console.log("killing server...")
     server_proc.unref();
-    server_proc.kill();
+    console.log("server unref'd...")
+    server_proc.kill('SIGQUIT');
+    console.log("server killed...")
   });
 
   it('should launch', function() {
