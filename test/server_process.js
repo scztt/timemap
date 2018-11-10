@@ -28,15 +28,15 @@ describe('server process', function() {
     }));
   });
 
-  after(function() {
-    server_proc.removeAllListeners('exit');
-    console.log("killing server...")
-    server_proc.unref();
-    console.log("server unref'd...")
-    server_proc.kill('SIGINT');
-    console.log("server killed...")
-    return (new Promise(function(done) { setTimeout(done, 1000) }));
-  });
+  // after(function() {
+  //   server_proc.removeAllListeners('exit');
+  //   console.log("killing server...")
+  //   server_proc.unref();
+  //   console.log("server unref'd...")
+  //   server_proc.kill('SIGINT');
+  //   console.log("server killed...")
+  //   return (new Promise(function(done) { setTimeout(done, 1000) }));
+  // });
 
   it('should launch', function() {
     assert.equal(server_exited, false);
