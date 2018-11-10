@@ -29,7 +29,7 @@ describe('server process', function() {
   });
 
   after(function() {
-    server_proc.on('exit');
+    server_proc.removeAllListeners('exit');
     console.log("killing server...")
     server_proc.unref();
     console.log("server unref'd...")
