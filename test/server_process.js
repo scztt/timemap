@@ -13,24 +13,16 @@ describe('server process', function() {
     this.timeout(SERVER_LAUNCH_WAIT_TIME + 1000);
 
     console.log("launching server...")
-    // server_proc = child_process.spawn('webpack-dev-server', ['--content-base', 'static', '--mode', 'development'], {
+
     server_proc = child_process.spawn('yarn', ['dev'], {
       cwd: '.',
-      // shell: '/bin/bash',
-      // detached: true,
       stdio: 'ignore'
     });
 
     server_proc.on('exit', function(code, signal) {
       console.log("process terminated: " + server_proc.killed)
       server_exited = true;
-      // server_proc.removeAllListeners('exit');
-      server_proc = null;
     });
-
-    // server_proc.unref();
-    // server_proc.unref();
-    // server_proc.unref();
 
     return (new Promise(function(resolve) {
       // @TODO Better way to detect server alive-ness than waiting?
@@ -44,23 +36,7 @@ describe('server process', function() {
 
   after(function() {
     console.log("killing server...")
-    // console.log('SIGQUIT')
-    // server_proc.kill('SIGQUIT');
-    // console.log('SIGINT')
-    // server_proc.kill('SIGINT');
-    console.log('SIGKILL')
     server_proc.kill('SIGKILL');
-    console.log("server killed...");
-
-    setTimeout(function () {
-      log() // logs out active handles that are keeping node running
-    }, 2000)
-    setTimeout(function () {
-      log() // logs out active handles that are keeping node running
-    }, 5000)
-    setTimeout(function () {
-      log() // logs out active handles that are keeping node running
-    }, 8000)
   });
 
   it('should launch', function() {
