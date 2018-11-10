@@ -29,11 +29,13 @@ describe('server process', function() {
   });
 
   after(function() {
+    server_proc.on('exit');
     console.log("killing server...")
     server_proc.unref();
     console.log("server unref'd...")
-    server_proc.kill('SIGQUIT');
+    server_proc.kill('SIGINT');
     console.log("server killed...")
+    return (new Promise(function(done) { setTimeout(done, 1000) }));
   });
 
   it('should launch', function() {
