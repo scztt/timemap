@@ -19,10 +19,14 @@ describe('server process', function() {
     });
 
     server_proc.on('exit', function(code, signal) {
-      console.log("process terminated.")
+      console.log("process terminated: " + server_proc.killed)
       server_exited = true;
       server_proc.removeAllListeners('exit');
+      server_proc = null;
     });
+
+    server_proc.unref();
+    server_proc.unref();
     server_proc.unref();
 
     return (new Promise(function(done) {
@@ -33,9 +37,11 @@ describe('server process', function() {
 
   after(function() {
     console.log("killing server...")
-    console.log("server unref'd...")
+    console.log('SIGQUIT')
     server_proc.kill('SIGQUIT');
+    console.log('SIGINT')
     server_proc.kill('SIGINT');
+    console.log('SIGKILL')
     server_proc.kill('SIGKILL');
     console.log("server killed...")
   });
