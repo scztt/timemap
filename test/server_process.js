@@ -12,7 +12,7 @@ describe('server process', function() {
     this.timeout(SERVER_LAUNCH_WAIT_TIME + 1000);
 
     console.log("launching server...")
-    server_proc = child_process.spawn('yarn', ['dev'], {
+    server_proc = child_process.spawn('webpack-dev-server', ['--content-base', 'static', '--mode', 'development'], {
       cwd: '.',
       // shell: '/bin/bash',
       detached: true
