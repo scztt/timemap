@@ -11,6 +11,5 @@ before_script:
 install:
   - yarn
 script:
-  - for i in `seq 1 20`; do ps a -w -w; sleep 1; done &
   - yarn build
   - yarn test

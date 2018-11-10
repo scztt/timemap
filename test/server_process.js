@@ -16,7 +16,8 @@ describe('server process', function() {
     server_proc = child_process.spawn('webpack-dev-server', ['--content-base', 'static', '--mode', 'development'], {
       cwd: '.',
       shell: '/bin/bash',
-      detached: true
+      detached: true,
+      stdio: 'ignore'
     });
 
     server_proc.on('exit', function(code, signal) {
@@ -89,6 +90,7 @@ describe('server process', function() {
         res.on('data', function(data) { result_data += data });
 
         res.on('end', function() {
+          res.abort();
           if (result_data.length > 0) {
             done();
           } else {
