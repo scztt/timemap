@@ -79,7 +79,8 @@ describe('server process', function() {
       var conn = http.get({
         hostname: 'localhost',
         port: 8080,
-        path: '/'
+        path: '/',
+        agent: false
       }, function(res) {
         var result_data = '';
 
@@ -90,7 +91,6 @@ describe('server process', function() {
         res.on('data', function(data) { result_data += data });
 
         res.on('end', function() {
-          conn.abort();
           if (result_data.length > 0) {
             done();
           } else {
