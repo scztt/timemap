@@ -12,17 +12,18 @@ describe('server process', function() {
     this.timeout(SERVER_LAUNCH_WAIT_TIME + 1000);
 
     console.log("launching server...")
-    // server_proc = child_process.spawn('yarn', ['dev'], {
-    //   cwd: '.',
-    //   shell: '/bin/bash',
-    //   detached: true
-    // });
-    //
-    // server_proc.on('exit', function(code, signal) {
-    //   console.log("process terminated.")
-    //   server_exited = true;
-    // });
-    // server_proc.unref();
+    server_proc = child_process.spawn('yarn', ['dev'], {
+      cwd: '.',
+      // shell: '/bin/bash',
+      detached: true
+    });
+
+    server_proc.on('exit', function(code, signal) {
+      console.log("process terminated.")
+      server_exited = true;
+      server_proc.removeAllListeners('exit');
+    });
+    server_proc.unref();
 
     return (new Promise(function(done) {
       // @TODO Better way to detect server alive-ness than waiting?
@@ -31,13 +32,13 @@ describe('server process', function() {
   });
 
   after(function() {
-    //server_proc.removeAllListeners('exit');
     console.log("killing server...")
     console.log("server unref'd...")
-    // server_proc.kill('SIGQUIT');
-    // server_proc.kill('SIGINT');
-    // server_proc.kill('SIGKILL');
+    server_proc.kill('SIGQUIT');
+    server_proc.kill('SIGINT');
+    server_proc.kill('SIGKILL');
     console.log("server killed...")
+    return (new Promise(function(done) { setTimeout(done, 1000) }));
   });
 
   it('should launch', function() {
