@@ -18,9 +18,10 @@ describe('server process', function() {
       detached: true
     });
 
-    // server_proc.on('exit', function(code, signal) {
-    //   server_exited = true;
-    // });
+    server_proc.on('exit', function(code, signal) {
+      console.log("process terminated.")
+      server_exited = true;
+    });
 
     return (new Promise(function(done) {
       // @TODO Better way to detect server alive-ness than waiting?
@@ -33,7 +34,9 @@ describe('server process', function() {
     console.log("killing server...")
     server_proc.unref();
     console.log("server unref'd...")
+    server_proc.kill('SIGQUIT');
     server_proc.kill('SIGINT');
+    server_proc.kill('SIGKILL');
     console.log("server killed...")
     return (new Promise(function(done) { setTimeout(done, 1000) }));
   });
