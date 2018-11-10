@@ -29,9 +29,12 @@ describe('server process', function() {
     server_proc.unref();
     server_proc.unref();
 
-    return (new Promise(function(done) {
+    return (new Promise(function(resolve) {
       // @TODO Better way to detect server alive-ness than waiting?
-      setTimeout(done, SERVER_LAUNCH_WAIT_TIME)
+      setTimeout(function() {
+        console.log('promise resolved');
+        resolve("done");
+      }, SERVER_LAUNCH_WAIT_TIME)
       console.log('process pid: ' + server_proc.pid)
     }));
   });
