@@ -38,7 +38,6 @@ describe('server process', function() {
     server_proc.kill('SIGINT');
     server_proc.kill('SIGKILL');
     console.log("server killed...")
-    return (new Promise(function(done) { setTimeout(done, 1000) }));
   });
 
   it('should launch', function() {
